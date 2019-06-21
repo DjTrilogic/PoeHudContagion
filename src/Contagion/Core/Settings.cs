@@ -14,6 +14,7 @@ namespace Contagion.Core
         public ToggleNode AimPlayers { get; set; } = true;
         public ToggleNode DebugMonsterWeight { get; set; } = false;
         public ToggleNode ShowAimRange { get; set; } = false;
+        public RangeNode<int> HasContagionWeight { get; set; } = new RangeNode<int>(20, -200, 200);
         public RangeNode<int> UniqueRarityWeight { get; set; } = new RangeNode<int>(20, -200, 200);
         public RangeNode<int> RareRarityWeight { get; set; } = new RangeNode<int>(15, -200, 200);
         public RangeNode<int> MagicRarityWeight { get; set; } = new RangeNode<int>(10, -200, 200);

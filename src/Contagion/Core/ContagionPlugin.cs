@@ -131,7 +131,9 @@ namespace Contagion.Core
             Settings.AimPlayers.Value = ImGuiExtension.Checkbox("Aim Players Instead?", Settings.AimPlayers.Value);
             ImGui.Separator();
             ImGui.BulletText("Weight Settings");
-            PoeHUD.Hud.UI.ImGuiExtension.ToolTip("Aims monsters with higher weight first");
+            PoeHUD.Hud.UI.ImGuiExtension.ToolTip("The highest the weight the prior it will be selected");
+            Settings.HasContagionWeight.Value = ImGuiExtension.IntDrag("Has Contagion Buff", Settings.HasContagionWeight.Value > 0 ? "+%.00f" : "%.00f",
+                Settings.HasContagionWeight);
             Settings.UniqueRarityWeight.Value = ImGuiExtension.IntDrag("Unique Monster", Settings.UniqueRarityWeight.Value > 0 ? "+%.00f" : "%.00f",
                     Settings.UniqueRarityWeight);
             Settings.RareRarityWeight.Value = ImGuiExtension.IntDrag("Rare Monster", Settings.RareRarityWeight.Value > 0 ? "+%.00f" : "%.00f",
@@ -223,6 +225,7 @@ namespace Contagion.Core
             int weight = 0;
             weight -= API.GameController.Player.DistanceFrom(entity) / 10;
 
+            if (entity.GetComponent<Life>().HasBuff("contagion")) weight += Settings.HasContagionWeight;
             if (entity.GetComponent<Life>().HasBuff("capture_monster_trapped")) weight += Settings.capture_monster_trapped;
             if (entity.GetComponent<Life>().HasBuff("harbinger_minion_new")) weight += Settings.HarbingerMinionWeight;
             if (entity.GetComponent<Life>().HasBuff("capture_monster_enraged")) weight += Settings.capture_monster_enraged;
